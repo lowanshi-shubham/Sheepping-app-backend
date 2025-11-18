@@ -21,7 +21,11 @@ let a = "hello"
 app.use(fileUpload()); 
 
 //configuration to resolve cross origin problem
-app.use(cors());
+app.use(cors({
+  origin: "*",           // testing ke liye
+  methods: "GET,POST,PUT,DELETE",
+  allowedHeaders: "Content-Type, Authorization"
+}));
 
 //router level middleware to link routers
 app.use("/user",UserRouter);
