@@ -1,8 +1,20 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 import dotenv from "dotenv";
+
 dotenv.config();
 
-// const url="mongodb://127.0.0.1:27017/shippingwar";
+async function connectDB() {
+  try {
+    await mongoose.connect(process.env.DB_URL, {
+      serverSelectionTimeoutMS: 5000,
+      tls: true, // Atlas पर जरूरी
+    });
 
-    mongoose.connect(process.env.DB_URL);
-    console.log("Successfully connected to mongodb database...");
+    console.log("✅ Successfully connected to MongoDB Atlas");
+  } catch (error) {
+    console.error("❌ MongoDB Connection Error:", error.message);
+    process.exit(1);
+  }
+}
+
+connectDB();
